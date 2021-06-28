@@ -19,6 +19,7 @@
 		
 		<security:intercept-url pattern="/workout/insert" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/workout/lookUp" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
 		
 		<!-- <security:intercept-url pattern="/**" access="permitAll"/> -->
 

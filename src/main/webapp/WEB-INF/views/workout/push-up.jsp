@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -170,6 +171,28 @@
 <!-- Core theme JS-->
 <script src="/resources/js/scripts.js"></script>
 
+<sec:authorize access="isAnonymous()">
+	<script>
+		$('#titleWorkoutEnd').click(function (){
+			$(location).attr('href','/accessError');
+        })
+	</script>
+</sec:authorize>
+	
+<sec:authorize access="isAuthenticated()">
+	<script>
+    	let workoutTime = $('#display').text();
+
+		$('#titleWorkoutEnd').click(function (){
+	    		$(".myForm input[name=workoutTime]").attr('value', workoutTime);
+	   			$(".myForm").submit();
+	        })
+	</script>
+</sec:authorize>
+
+
+
+	
 <script>
   var progressbar = document.getElementById("progress-bar")
   progressbar.style.width = "0%";

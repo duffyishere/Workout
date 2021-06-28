@@ -238,7 +238,11 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

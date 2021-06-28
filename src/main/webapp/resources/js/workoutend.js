@@ -3,14 +3,9 @@ var newTitle = document.getElementById("titleWorkoutEnd");
 var idcontainer = document.getElementById("idcontainer");
 
 workoutEnd.addEventListener("click",end);
-newTitle.addEventListener("click",save);
+// newTitle.addEventListener("click",save);
 function end() {
 	eraseAll()
-
-    let workoutTime = $('#display').text();
-    
-    $(".myForm input[name=workoutTime]").attr('value', workoutTime);
-    $(".myForm").submit();
 }
 function eraseAll() {
     newTitle.style.height = "210px";
@@ -41,4 +36,5 @@ function save(){
     idcontainer.style.height = "200px";
     idform.style.height = "0px";
     idform.style.visibility = "visible";
+
 }
