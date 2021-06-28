@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -138,11 +139,11 @@
   <div style="visibility: visible;" id="last-count">0</div> -->
   
   <form action="/workout/insert" method="post" class="myForm">
-  <input type="hidden" name="userid" value="user0">
-  <input type="hidden" name="workoutName" value="squat">
-  <input type="hidden" name="workoutTime" value="">
-  <!-- <input name="calorie" value=""> -->
-  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="hidden" name="userid" value="<c:out value='${userName}'/>">
+    <input type="hidden" name="workoutName" value="squat">
+    <input type="hidden" name="workoutTime" value="">
+    <!-- <input name="calorie" value=""> -->
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
   
 </header>

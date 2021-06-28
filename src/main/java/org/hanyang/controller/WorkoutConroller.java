@@ -3,6 +3,8 @@ package org.hanyang.controller;
 import org.hanyang.domain.WorkoutVO;
 import org.hanyang.service.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,25 +33,63 @@ public class WorkoutConroller {
 	}
 	
 	@GetMapping("/push-up")
-	public String pushUp(){
+	public String pushUp(Model model){
 		
 		log.info("push-up");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String userName = authentication.getName();
+		
+		log.info("user name : "+userName);
+		
+		model.addAttribute("userName", userName);
 		
 		return "/workout/push-up";
 	}
 	
 	@GetMapping("/squat")
-	public void squat() {
+	public void squat(Model model) {
 		
 		log.info("squat");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String userName = authentication.getName();
+		
+		log.info("user name : "+userName);
+		
+		model.addAttribute("userName", userName);
 	}
 	
 	@GetMapping("/sit-up")
-	public String sitUp(){
+	public String sitUp(Model model){
 		
 		log.info("sit-up");
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String userName = authentication.getName();
+		
+		log.info("user name : "+userName);
+		
+		model.addAttribute("userName", userName);
+		
 		return "/workout/sit-up";
+	}
+	
+	@GetMapping("/lookUp")
+	public void lookUp(String userID, Model model) {
+		
+		log.info("look up");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String userName = authentication.getName();
+		
+		log.info("user name : "+userName);
+		
+		model.addAttribute("userName", userName);
 	}
 	
 	@GetMapping("/howto")
@@ -64,14 +104,6 @@ public class WorkoutConroller {
 		log.info("insert get");
 	}
 	
-	@GetMapping("/lookUp")
-	public void lookUp(String userID, Model model) {
-		
-		model.addAttribute("list", service.readWithUserID(userID));
-		
-		log.info("look up");
-	}
-	
 	@PostMapping("/insert")
 	public String insert(WorkoutVO vo, RedirectAttributes rdAttributes) {
 		
@@ -79,11 +111,7 @@ public class WorkoutConroller {
 		
 		service.insertData(vo);
 		
-		return "redirect:/";
+		return "redirect:/workout/lookUp";
 	}
 	
-	@GetMapping("/test")
-	public void test() {
-		
-	}
 }

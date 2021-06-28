@@ -21,6 +21,7 @@
     <script src="/resources/js/squataimodel.js"></script>
     <script src="/resources/js/stopwatch.js"></script>
     <script src="/resources/js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- Simple line icons-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css"
         rel="stylesheet" />
@@ -99,7 +100,8 @@
                 <!-- <div class="table-responsive"> -->
                 <table class="table table-hover type">
                     <thead>
-                        <tr> 
+                        <tr>
+                            <th scope="cols">사용자 이름</th>
                             <th scope="cols">날짜</th>
                             <th scope="cols">운동</th>
                             <!-- <th scope="cols">목표 횟수</th> -->
@@ -107,14 +109,8 @@
                             <th scope="cols" style="border-right: 1px solid #000000;">걸린시간</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach var="list" items="${list}">
-                        <tr>
-                            <td>2021-6-25</td>
-                            <td><c:out value="${list.workoutName}"/></td>
-                            <td><c:out value="${list.workoutTime}"/></td>
-                        </tr>
-                    </c:forEach>
+                    <tbody id="workoutDiv">
+
                     </tbody>
                 </table>
                 <!-- </div> -->
@@ -123,6 +119,43 @@
 
     </div>
 
+
+<script>
+    $(document).ready(function (){
+        let userID = "<c:out value="${userName}"/>";
+
+        // console.log(userID);
+
+            $.ajax({
+                url: '/memberData',
+                type: 'POST',
+                data: {
+                    userID: userID
+                },
+                beforeSend : function(xhr)
+                {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (data){
+                    // alert(data)
+                    console.log(data)
+                    
+                    for(var i=0; i<data.length; i++){
+                        var tags = [];
+
+                        tags.push("<tr>");
+                        tags.push("<td>"+data[i].userid+"</td>");
+                        tags.push("<td>"+data[i].workoutDate+"</td>");
+                        tags.push("<td>"+data[i].workoutName+"</td>");
+                        tags.push("<td>"+data[i].workoutTime+"</td>");
+                        tags.push("</tr>");
+
+                        $("#workoutDiv").append(tags)
+                    }
+                }
+            })
+    })
+</script>
 
 </body>
 

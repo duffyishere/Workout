@@ -8,8 +8,6 @@ function end() {
 	eraseAll()
 
     let workoutTime = $('#display').text();
-
-	alert(workoutTime)
     
     $(".myForm input[name=workoutTime]").attr('value', workoutTime);
     $(".myForm").submit();
